@@ -9,7 +9,10 @@
                             <h1 class="text-base font-bold text-white">
                                 Video Profil
                             </h1>
-                            <div class="pb-5"> <iframe class="w-72 h-40" src="https://www.youtube.com/embed/LhuXAA1O7Ig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </div>
+                            <div class="pb-5"> <iframe class="w-72 h-40" src="https://www.youtube.com/embed/LhuXAA1O7Ig"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe> </div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +136,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="flex w-full flex-col">
+                {{-- <div class="flex w-full flex-col">
                     <div class="flex flex-col">
                         <div class="pb-2">
                             <p class="text-base font-bold text-white">
@@ -149,8 +152,8 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
-                <div class="w-full">
+                </div> --}}
+                {{-- <div class="w-full">
                     <div class="flex flex-col">
                         <div class="pb-2">
                             <p class="text-base font-bold text-white">
@@ -165,7 +168,7 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="z-10 w-full">

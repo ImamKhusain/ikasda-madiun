@@ -1,19 +1,8 @@
 <div class="">
-    <nav class="bg-transparent bg-gradient-to-b from-gray-700 to-transparent top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out"
-        id="navbar">
+    <nav class="bg-yellow-500 top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out" id="navbar">
         <div class="bg-transparent max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 h-16"
             id="navbar-content">
             <div class="flex flex-wrap items-center">
-                <button data-collapse-toggle="navbar-hamburger" type="button"
-                    class="hidden w-fit aspect-square items-center justify-center text-sm text-white focus:outline-none md:block"
-                    aria-controls="navbar-hamburger-mobile" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                </button>
                 <button data-collapse-toggle="navbar-hamburger-mobile" type="button"
                     class="inline-flex w-fit aspect-square items-center justify-center text-sm text-white focus:outline-none md:hidden"
                     aria-controls="navbar-hamburger-mobile" aria-expanded="false">
@@ -91,7 +80,7 @@
         </div>
     </nav>
 
-    <div class="hidden md:flex">
+    <div class="flex">
         <x-navbar-large />
     </div>
     <div class="flex md:hidden">
@@ -133,20 +122,20 @@
 
     // Hamburger Menu Navbar
     document.addEventListener('DOMContentLoaded', function() {
-        var hamburgerButton = document.querySelector(
-            '[data-collapse-toggle="navbar-hamburger"]',
-        );
-        var navbarHamburger = document.getElementById('navbar-hamburger');
+        // var hamburgerButton = document.querySelector(
+        //     '[data-collapse-toggle="navbar-hamburger"]',
+        // );
+        // var navbarHamburger = document.getElementById('navbar-hamburger');
         var hamburgerButtonMobile = document.querySelector('[data-collapse-toggle="navbar-hamburger-mobile"]');
         var navbarHamburgerMobile = document.getElementById('navbar-hamburger-mobile');
 
-        hamburgerButton.addEventListener('click', function() {
-            var expanded =
-                hamburgerButton.getAttribute('aria-expanded') === 'true' ||
-                false;
-            hamburgerButton.setAttribute('aria-expanded', !expanded);
-            navbarHamburger.classList.toggle('flex');
-        });
+        // hamburgerButton.addEventListener('click', function() {
+        //     var expanded =
+        //         hamburgerButton.getAttribute('aria-expanded') === 'true' ||
+        //         false;
+        //     hamburgerButton.setAttribute('aria-expanded', !expanded);
+        //     navbarHamburger.classList.toggle('flex');
+        // });
 
         hamburgerButtonMobile.addEventListener('click', function() {
             var expanded =

@@ -11,7 +11,9 @@ export default {
 
     theme: {
         extend: {
-            colors: {},
+            colors: {
+                primary: '#f1c40f',
+            },
             fontFamily: {
                 default: ["Inter", ...defaultTheme.fontFamily.sans],
             },

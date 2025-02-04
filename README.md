@@ -1,1 +1,1 @@
-# ISR Web Profile Development
+# Ikasda Website Development Using Laravel + CMS Filament + Tailwind CSS
