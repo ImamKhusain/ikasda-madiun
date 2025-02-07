@@ -12,7 +12,9 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#f1c40f',
+                primary: "#FFD600",
+                secondary: "#FE0000",
+                trinary: "#03A0F4",
             },
             fontFamily: {
                 default: ["Inter", ...defaultTheme.fontFamily.sans],

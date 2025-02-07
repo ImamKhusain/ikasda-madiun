@@ -1,7 +1,6 @@
 <div class="">
-    <nav class="bg-yellow-500 top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out" id="navbar">
-        <div class="bg-transparent max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 h-16"
-            id="navbar-content">
+    <nav class="w-full h-48 bg-trinary top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out" id="navbar">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 h-16" id="navbar-content">
             <div class="flex flex-wrap items-center">
                 <button data-collapse-toggle="navbar-hamburger-mobile" type="button"
                     class="inline-flex w-fit aspect-square items-center justify-center text-sm text-white focus:outline-none md:hidden"
@@ -13,17 +12,12 @@
                             d="M1 1h15M1 7h15M1 13h15" />
                     </svg>
                 </button>
-                <div class="flex flex-row items-center p-1 md:p-0">
+                <div class="flex flex-row items-center p-1 md:p-4">
                     <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
-                        <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
-                            <img src="/images/upn-blu-navbar-logo.png" class="h-10" alt="UPN BLU Logo" />
-                        </a>
-                        <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
-                            <img src="/images/isr-navbar-logo.png" class="h-10" alt="ISR Logo" />
-                        </a>
-                        <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
-                            <img src="/images/isr-navbar-logo2.png" class="h-10" alt="ISR Logo2" />
-                        </a>
+                        <img src="/images/sma-2-madiun-logo.png" class="w-16 h-20 object-cover"
+                            alt="SMA 2 Madiun Logo" />
+                        <img src="/images/ikasda-logo.png" class="w-60 h-32 object-cover" alt="Ikasda Logo" />
+                    </a>
                 </div>
             </div>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -90,36 +84,6 @@
 </div>
 
 <script>
-    // Background Color Navbar
-    window.addEventListener('scroll', function() {
-        var navbar = document.getElementById('navbar');
-        var navbarContent = document.getElementById('navbar-content');
-        if (window.scrollY > 0) {
-            navbar.classList.remove.apply(navbar.classList, [
-                'bg-transparent',
-                'bg-gradient-to-b',
-                'from-gray-700',
-                'to-transparent',
-            ]);
-            navbar.classList.add.apply(navbar.classList, [
-                'bg-[#0D5568]',
-                'shadow-md',
-                'border-b',
-                'border-b-[#F5D05E]',
-            ]);
-        } else {
-            navbar.classList.remove.apply(navbar.classList, [
-                'bg-[#0D5568]',
-                'shadow-md',
-                'border-b',
-                'border-b-[#F5D05E]',
-            ]);
-            navbar.classList.add.apply(navbar.classList, ['bg-transparent', 'bg-gradient-to-b',
-                'from-gray-700'
-            ]);
-        }
-    });
-
     // Hamburger Menu Navbar
     document.addEventListener('DOMContentLoaded', function() {
         // var hamburgerButton = document.querySelector(
