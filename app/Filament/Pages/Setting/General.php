@@ -112,7 +112,7 @@ class General extends Page
     {
         return $form
             ->schema([
-                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id()),
                 Hidden::make('title'),
                 Hidden::make('slug'),
                 Builder::make('content')
@@ -137,8 +137,8 @@ class General extends Page
                     ->addActionLabel('Add a new content')
                     ->columnSpanFull()
                     ->blockNumbers(false)
-                    ->deletable(false)
-                    ->addable(false)
+                    // ->deletable(false)
+                    // ->addable(false)
                     ->reorderable(false)
             ])
             ->model($this->record)

@@ -44,7 +44,7 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-pencil';
 
-    protected static ?string $navigationLabel = 'Pojok Ilmiah';
+    protected static ?string $navigationLabel = 'News';
 
     protected static ?int $navigationSort = 2;
 
@@ -88,18 +88,18 @@ class PostResource extends Resource
                                                 ->maxLength(255)
                                                 ->live(onBlur: true)
                                                 ->required()
-                                                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
                                             TextInput::make('slug')
                                                 ->readOnly()
                                                 ->required()
-                                                ->unique(Post::class, 'slug', fn ($record) => $record),
+                                                ->unique(Post::class, 'slug', fn($record) => $record),
                                         ]),
                                         Select::make('category_id')
                                             ->label('Category')
                                             ->disabledOn('edit')
                                             ->required()
                                             ->live()
-                                            ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Post $post) => $query->where("model", $post->getMorphClass()),)
+                                            ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn(Builder $query, Post $post) => $query->where("model", $post->getMorphClass()),)
                                             ->suffixAction(
                                                 Action::make('create')
                                                     ->label('Create Category')
@@ -110,47 +110,14 @@ class PostResource extends Resource
                                                             TextInput::make('name')
                                                                 ->required()
                                                                 ->live(onBlur: true)
-                                                                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                                ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
                                                             TextInput::make('slug')
                                                                 ->readOnly()
                                                                 ->required()
-                                                                ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                                ->unique(Category::class, 'slug', fn($record) => $record),
                                                         ]),
                                                         Hidden::make('model')
-                                                            ->dehydrateStateUsing(fn (Post $query) => $query->getMorphClass())
-                                                    ])
-                                                    ->action(function (array $data, Category $query) {
-                                                        $query->create($data);
-                                                    })->visible(auth()->user()->can('category:create'))
-                                            ),
-                                        Select::make('sub_category')
-                                            ->required()
-                                            ->disabledOn('edit')
-                                            ->visible(fn (Category $query, Get $get) => $query->where('parent_id', $get('category_id'))->exists())
-                                            ->relationship(name: 'subCategories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Get $get) => $query->where('parent_id', $get('category_id'))
-                                                ->whereNotNull('parent_id'),)
-                                            ->suffixAction(
-                                                Action::make('create')
-                                                    ->label('Create Sub Category')
-                                                    ->icon('heroicon-m-plus')
-                                                    ->color('gray')
-                                                    ->form([
-                                                        Split::make([
-                                                            TextInput::make('name')
-                                                                ->required()
-                                                                ->live(onBlur: true)
-                                                                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                                            TextInput::make('slug')
-                                                                ->readOnly()
-                                                                ->required()
-                                                                ->unique(Category::class, 'slug', fn ($record) => $record),
-                                                        ]),
-                                                        Select::make('parent_id')
-                                                            ->label('Category')
-                                                            ->required()
-                                                            ->options(fn (Post $query): Collection => Category::query()
-                                                                ->where("model", $query->getMorphClass())
-                                                                ->pluck('name', 'id')),
+                                                            ->dehydrateStateUsing(fn(Post $query) => $query->getMorphClass())
                                                     ])
                                                     ->action(function (array $data, Category $query) {
                                                         $query->create($data);
@@ -224,7 +191,7 @@ class PostResource extends Resource
                                 'md' => 2,
                             ])
                             ->schema([
-                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id())->disabledOn('edit'),
+                                Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id())->disabledOn('edit'),
                                 Split::make([
                                     Toggle::make('is_published')->label('Published')->onColor('success')->accepted(),
                                     Toggle::make('is_featured')->label('Featured'),
@@ -251,7 +218,7 @@ class PostResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->when(!auth()->user()->can('post:all'), function ($query) {
+            ->modifyQueryUsing(fn(Builder $query) => $query->when(!auth()->user()->can('post:all'), function ($query) {
                 $query->where('user_id', Auth::id());
             }))
             ->groups([
@@ -266,26 +233,26 @@ class PostResource extends Resource
                 TextColumn::make('title')->limit(30)->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->default("-"),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Post $record): bool => !(auth()->user()->can('publish') || $record->user_id === Auth::id())),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn(Post $record): bool => !(auth()->user()->can('publish') || $record->user_id === Auth::id())),
                 TextColumn::make('views')
                     ->state(
-                        fn (Post $record) => $record->getPageViews()
+                        fn(Post $record) => $record->getPageViews()
                     )->toggleable(false),
                 TextColumn::make('likes')
                     ->state(
-                        fn (Post $record) => $record->likes()->count()
+                        fn(Post $record) => $record->likes()->count()
                     )->toggleable(false),
                 SpatieTagsColumn::make('tags'),
                 TextColumn::make('statuses.name')
                     ->label('Status')
                     ->badge()
-                    ->icon(fn (string $state): string => match ($state) {
+                    ->icon(fn(string $state): string => match ($state) {
                         'draft' => 'heroicon-m-pencil',
                         'reviewing' => 'heroicon-m-clock',
                         'published' => 'heroicon-m-check-circle',
                         'rejected' => 'heroicon-m-exclamation-circle',
                     })
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'draft' => 'gray',
                         'reviewing' => 'warning',
                         'published' => 'success',
@@ -293,39 +260,36 @@ class PostResource extends Resource
                     })->alignment(Alignment::Center),
             ])
             ->filters([
-                Tables\Filters\Filter::make('featured')
-                    ->label('Featured')
-                    ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
                 Tables\Filters\TrashedFilter::make()
             ])
             ->toggleColumnsTriggerAction(
-                fn (Tables\Actions\Action $action) => $action->hiddenLabel(),
+                fn(Tables\Actions\Action $action) => $action->hiddenLabel(),
             )
             ->actions([
                 Tables\Actions\RestoreAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
-                    ->action(fn (Post $record) => $record->updateStatus('reviewing'))
+                    ->action(fn(Post $record) => $record->updateStatus('reviewing'))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
                     ->size(ActionSize::Small)
                     ->color("primary")
-                    ->visible(fn (Post $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
+                    ->visible(fn(Post $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
                 Tables\Actions\Action::make('accept')
-                    ->action(fn (Post $record) => $record->updateStatus('published'))
+                    ->action(fn(Post $record) => $record->updateStatus('published'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("success")
-                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                    ->visible(fn(Post $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
-                    ->action(fn (Post $record) => $record->updateStatus('rejected'))
+                    ->action(fn(Post $record) => $record->updateStatus('rejected'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("danger")
-                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
+                    ->visible(fn(Post $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
