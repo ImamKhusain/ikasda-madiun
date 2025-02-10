@@ -1,5 +1,5 @@
 <div class="">
-    <nav class="w-full h-48 bg-trinary top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out" id="navbar">
+    <nav class="w-full h-28 bg-trinary top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out" id="navbar">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 h-16" id="navbar-content">
             <div class="flex flex-wrap items-center">
                 <button data-collapse-toggle="navbar-hamburger-mobile" type="button"
@@ -14,9 +14,8 @@
                 </button>
                 <div class="flex flex-row items-center p-1 md:p-4">
                     <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/images/sma-2-madiun-logo.png" class="w-16 h-20 object-cover"
-                            alt="SMA 2 Madiun Logo" />
-                        <img src="/images/ikasda-logo.png" class="w-60 h-32 object-cover" alt="Ikasda Logo" />
+                        <img src="/images/sma-2-madiun-logo.png" class="w-14 aspect-square " alt="SMA 2 Madiun Logo" />
+                        <img src="/images/ikasda-logo.png" class="w-48 h-14 object-cover" alt="Ikasda Logo" />
                     </a>
                 </div>
             </div>

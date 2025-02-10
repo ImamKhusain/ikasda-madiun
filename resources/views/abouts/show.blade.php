@@ -26,8 +26,5 @@
                 <x-content :items="$organizational->content" contentType="organizational" />
             </div>
         </div>
-        <div class="absolute bottom-0 left-0 hidden lg:block">
-            <img src="/images/side-decor-bottom-left.png" alt="" />
-        </div>
     </div>
 @endsection
