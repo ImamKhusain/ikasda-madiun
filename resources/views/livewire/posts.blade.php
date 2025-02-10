@@ -1,6 +1,8 @@
 <div class="flex flex-col w-full mx-auto">
     <div class="flex flex-col w-full">
-        <img src="/images/artikel.png" alt="artikel" class="h-full w-full object-contain">
+        <div class="relative w-full top-10">
+            <img src="/images/berita-ikasda.png" alt="artikel" class="h-full w-full object-contain">
+        </div>
         <nav class="flex w-full h-15 md:h-20 items-center justify-center bg-[#0D5568]">
             @foreach ($categories as $item)
                 <div

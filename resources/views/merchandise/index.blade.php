@@ -5,11 +5,13 @@
 @section('content')
     <div class="flex flex-col">
         <div class="flex flex-row">
-            <img src="/images/merchandise.png" alt="merchandise"
-                class="h-full w-full object-cover bg-black bg-blend-multiply bg-opacity-20 shadow-md" />
+            <div class="relative w-full top-40">
+                <img src="/images/merchandise.png" alt="merchandise"
+                    class="h-full w-full object-cover bg-black bg-blend-multiply bg-opacity-20 shadow-md" />
+            </div>
             <div class="flex items-center justify-end">
-                <h1 class="absolute pr-10 text-xl font-black text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                    MERCHANDISE OF ISR
+                <h1 class="absolute pt-20 pr-10 text-xl font-black text-white sm:text-3xl md:text-4xl lg:text-5xl">
+                    KATALOG USAHA
                 </h1>
             </div>
         </div>
