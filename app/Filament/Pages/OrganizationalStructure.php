@@ -55,6 +55,7 @@ class OrganizationalStructure extends Page
     {
         return FilamentPageSidebar::make()
             ->setTitle('Organizational')
+            ->sidebarNavigation()
             ->setDescription('profile ukm, visi dan misi, struktur organisasi, profil kabinet, sambutan ketua, sambutan pembimbing')
             ->setNavigationItems([
                 PageNavigationItem::make('Profile UKM')
@@ -217,7 +218,7 @@ class OrganizationalStructure extends Page
                             ])->columns(),
                         Tabs\Tab::make('Meta')
                             ->schema([
-                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id()),
                                 TextInput::make('meta_description'),
                             ])
                     ])

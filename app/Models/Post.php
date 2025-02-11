@@ -50,11 +50,6 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-    public function subCategories(): MorphToMany
-    {
-        return $this->morphToMany(Category::class, 'categoriable');
-    }
-
     public function categories(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
@@ -83,13 +78,7 @@ class Post extends Model implements HasMedia
             $query->where('slug', $category);
         });
     }
-    
-    public function scopeWithSubCategory($query, string $subCategory = '')
-    {
-        $query->whereHas('subCategories', function ($query) use ($subCategory) {
-            $query->where('slug', $subCategory);
-        });
-    }
+
 
     public function scopeSearch($query, string $search = '')
     {

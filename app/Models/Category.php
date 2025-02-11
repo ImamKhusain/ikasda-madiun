@@ -14,14 +14,4 @@ class Category extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    public function categoriable(): MorphTo
-    {
-        return $this->morphTo();
-    }
-
-    public function children(): HasMany
-    {
-        return $this->hasMany(Category::class, 'parent_id')->oldest();
-    }
 }

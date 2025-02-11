@@ -1,0 +1,98 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - development
+      - master
+
+env:
+  CI_REGISTRY: https://index.docker.io/v1/
+  CI_REGISTRY_IMAGE: frab20/backend-zoejeton
+
+jobs:
+  build-dev:
+    if: github.ref == 'refs/heads/development'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Login
+      run: |
+        echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ env.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+    - name: Build and Publish
+      run: |
+        docker build --pull -f DockerFile -t '${{ env.CI_REGISTRY_IMAGE }}:latest-dev' .
+        docker push ${{ env.CI_REGISTRY_IMAGE }} --all-tags
+
+  build-prod:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Login
+      run: |
+        echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ env.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+    - name: Build and Publish
+      run: |
+        docker build --pull -f DockerFile -t '${{ env.CI_REGISTRY_IMAGE }}:latest-main' .
+        docker push ${{ env.CI_REGISTRY_IMAGE }} --all-tags
+
+  deploy-dev:
+    needs: build-dev
+    if: github.ref == 'refs/heads/development'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+      - name: Deploy to development
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }} "
+            export APP_IMAGE_DEV=${{ env.CI_REGISTRY_IMAGE }}
+            export APP_IMAGE_DEV_TAG=latest-dev
+            echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ env.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+            cd ~/Program/Dev/backend
+            git pull
+            docker-compose -f docker-compose.dev.yml down
+            docker-compose -f docker-compose.dev.yml pull php_backend_dev
+            docker-compose -f docker-compose.dev.yml up -d
+          "
+
+  deploy-prod:
+    needs: build-prod
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+      - name: Deploy to production
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }} "
+            export APP_IMAGE_PROD=${{ env.CI_REGISTRY_IMAGE }}
+            export APP_IMAGE_PROD_TAG=latest-main
+            echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ env.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+            cd ~/Program/backend
+            git pull
+            docker-compose -f docker-compose.prod.yml down
+            docker-compose -f docker-compose.prod.yml pull php_backend_prod
+            docker-compose -f docker-compose.prod.yml up -d
+          "

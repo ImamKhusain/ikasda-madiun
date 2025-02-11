@@ -18,6 +18,5 @@ class CreatePost extends CreateRecord
     protected function afterCreate(): void
     {
         $this->record->createStatus('draft');
-        $this->record->addPageView();
     }
 }

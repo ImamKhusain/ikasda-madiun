@@ -38,7 +38,7 @@ class OrganizationalProfile extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
-    protected static ?string $title = 'Profil UKM';
+    protected static ?string $title = 'Organizational Profil';
 
     protected static ?string $navigationLabel = 'Organizational';
 
@@ -59,10 +59,11 @@ class OrganizationalProfile extends Page
     public static function sidebar(): FilamentPageSidebar
     {
         return FilamentPageSidebar::make()
+            ->sidebarNavigation()
             ->setTitle('Organizational')
-            ->setDescription('profile ukm, visi dan misi, struktur organisasi, profil kabinet, sambutan ketua, sambutan pembimbing')
+            ->setDescription('Organizational Profil, visi dan misi, struktur organisasi, profil kabinet, sambutan ketua, sambutan pembimbing')
             ->setNavigationItems([
-                PageNavigationItem::make('Profile UKM')
+                PageNavigationItem::make('Organizational Profil')
                     ->translateLabel()
                     ->url(OrganizationalProfile::getUrl())
                     ->isActiveWhen(function () {
@@ -237,7 +238,7 @@ class OrganizationalProfile extends Page
                             ])->columns(),
                         Tabs\Tab::make('Meta')
                             ->schema([
-                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id()),
                                 TextInput::make('meta_description'),
                             ])
                     ])

@@ -40,6 +40,8 @@ class PostController extends Controller
 
     public function show(Category $category, Post $post)
     {
+        $post->addPageView();
+
         $posts = Post::published()->latest()->take(5)->get();
         $populars = Post::published()->withCategory($category->slug)->latest()->take(5)->get();
         $relates = Post::published()->withCategory($category->slug)->latest()->take(5)->get();

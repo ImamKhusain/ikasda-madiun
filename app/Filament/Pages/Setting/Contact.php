@@ -49,6 +49,7 @@ class Contact extends Page
     {
         return FilamentPageSidebar::make()
             ->setTitle('General Settings')
+            ->sidebarNavigation()
             ->setNavigationItems([
                 PageNavigationItem::make('General')
                     ->translateLabel()

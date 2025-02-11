@@ -11,6 +11,7 @@
         "php": "^8.1",
         "althinect/filament-spatie-roles-permissions": "^2.2",
         "aymanalhattami/filament-page-with-sidebar": "^2.4",
+        "bezhansalleh/filament-language-switch": "^3.1",
         "filament/filament": "3.2",
         "filament/spatie-laravel-media-library-plugin": "3.0-stable",
         "filament/spatie-laravel-tags-plugin": "3.2",

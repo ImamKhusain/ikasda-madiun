@@ -44,8 +44,6 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-pencil';
 
-    protected static ?string $navigationLabel = 'News';
-
     protected static ?int $navigationSort = 2;
 
     public static function getNavigationBadge(): ?string
@@ -231,7 +229,6 @@ class PostResource extends Resource
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->limit(30)->searchable(),
-                TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->default("-"),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn(Post $record): bool => !(auth()->user()->can('publish') || $record->user_id === Auth::id())),
                 TextColumn::make('views')

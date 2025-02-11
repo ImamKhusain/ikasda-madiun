@@ -25,12 +25,6 @@ class Posts extends Component
         return Post::published()->withCategory($this->category)->with('tags')->get();
     }
 
-    #[Computed()]
-    public function subPosts()
-    {
-        return Post::published()->with('subCategories')->get()->pluck('subCategories')->flatten();
-    }
-
     public function render(Post $post)
     {
         $categories = Category::where('model', $post->getMorphClass())->orderBy('name', 'asc')->get();

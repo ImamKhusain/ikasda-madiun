@@ -24,6 +24,13 @@
       0 => 'AymanAlhattami\\FilamentPageWithSidebar\\FilamentPageWithSidebarServiceProvider',
     ),
   ),
+  'bezhansalleh/filament-language-switch' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'BezhanSalleh\\FilamentLanguageSwitch\\FilamentLanguageSwitchServiceProvider',
+    ),
+  ),
   'blade-ui-kit/blade-heroicons' => 
   array (
     'providers' => 

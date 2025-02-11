@@ -1,0 +1,50 @@
+version: '3.8'
+
+networks:
+    be-i-dev:
+
+services:
+    nginx_backend_dev:
+        image: nginx:stable
+        container_name: ${APP_NAME}_nginx
+        restart: unless-stopped
+        ports:
+            - "8104:80"
+        links:
+            - php_backend_dev
+        volumes:
+            - ~/Program/Dev/backend/docker/nginx/site.conf:/etc/nginx/conf.d/default.conf:rw
+            - ~/Program/Dev/backend/docker/logs/nginx:/var/logs/nginx:rw
+        depends_on:
+            - php_backend_dev
+            - postgres_backend_dev
+        networks:
+            - be-i-dev
+    php_backend_dev:
+        image: ${APP_IMAGE_DEV}:${APP_IMAGE_DEV_TAG}
+        container_name: ${APP_NAME}_php
+        restart: unless-stopped
+        volumes:
+            - ~/Program/Dev/backend/storage:/var/www/html/storage:rw
+        env_file: .env
+        environment:
+            DB_HOST: postgres_backend_dev
+        depends_on:
+            - postgres_backend_dev
+        networks:
+            - be-i-dev
+    postgres_backend_dev:
+        image: postgres:14.2-alpine
+        container_name: ${APP_NAME}_postgres
+        restart: unless-stopped
+        ports:
+            - "5337:5432"
+        volumes:
+            - ~/Program/Dev/backend/docker/postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_HOST_AUTH_METHOD: "trust"
+        networks:
+            - be-i-dev
