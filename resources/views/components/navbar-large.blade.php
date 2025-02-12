@@ -1,5 +1,5 @@
 <div id="navbar-hamburger"
-    class="fixed top-28 text-lg z-50 bg-primary w-full h-fit flex flex-col border-t-2 border-secondary">
+    class="fixed hidden top-28 text-lg z-50 bg-primary w-full h-fit md:flex flex-col border-t-2 border-secondary">
     <!-- Menu Utama -->
     <div class="flex flex-row overflow-x-auto w-full h-12 border-b border-yellow-600 px-14 gap-10">
         <a data-menu id="tentang-ikasda" href="#"
