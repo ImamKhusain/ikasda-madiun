@@ -15,9 +15,9 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        $artikel = Post::withCategory('artikel')->published()->latest()->take(3)->get();
-        $berita = Post::withCategory('berita')->published()->latest()->take(3)->get();
-        $miniBlog = Post::withCategory('mini-blog')->published()->latest()->take(3)->get();
+        $beritaTerkini = Post::published()->latest()->take(3)->get();
+        $ikasdaBangga = Post::withCategory('ikasda-bangga')->published()->latest()->take(3)->get();
+        $terasKopi = Post::withCategory('teras-kopi')->published()->latest()->take(3)->get();
         $agenda = Agenda::published()->orderBy('datetime')->get();
 
         $profil = Organizational::where('slug', 'profile')->first();
@@ -26,9 +26,9 @@ class HomeController extends Controller
         $kegiatan = Organizational::where('slug', 'general')->first();
 
         return view('home', [
-            'berita' => $berita,
-            'artikel' => $artikel,
-            'miniBlog' => $miniBlog,
+            'beritaTerkini' => $beritaTerkini,
+            'ikasdaBangga' => $ikasdaBangga,
+            'terasKopi' => $terasKopi,
             'agenda' => $agenda,
             'profil' => $profil,
             'misi' => $misi,

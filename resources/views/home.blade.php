@@ -143,19 +143,19 @@
                 BERITA TERKINI
             </p>
             <div class="flex flex-row flex-wrap justify-center gap-6 py-5">
-                @foreach ($berita as $beritas)
+                @foreach ($beritaTerkini as $beritaTerkinis)
                     <div
-                        class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                        <a href="{{ route('posts.show', ['category' => $beritas->categories->slug, 'post' => $beritas->slug]) }}"
+                        class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-secondary border-r-secondary bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+                        <a href="{{ route('posts.show', ['category' => $beritaTerkinis->categories->slug, 'post' => $beritaTerkinis->slug]) }}"
                             class="flex justify-center">
-                            <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $beritas->getFirstMediaUrl() }}"
-                                alt="berita terkini" />
+                            <img class="m-3 h-[179px] w-[248px] rounded-xl"
+                                src="{{ $beritaTerkinis->getFirstMediaUrl() }}" alt="{{ $beritaTerkinis->slug }}" />
                         </a>
                         <div class="px-14">
                             <a
-                                href="{{ route('posts.show', ['category' => $beritas->categories->slug, 'post' => $beritas->slug]) }}">
+                                href="{{ route('posts.show', ['category' => $beritaTerkinis->categories->slug, 'post' => $beritaTerkinis->slug]) }}">
                                 @php
-                                    $words = explode(' ', $beritas->title);
+                                    $words = explode(' ', $beritaTerkinis->title);
                                     $limitedTitle = implode(' ', array_slice($words, 0, 7));
                                 @endphp
 
@@ -164,7 +164,7 @@
                                 </h5>
                             </a>
                             <div>
-                                @foreach ($beritas->content as $item)
+                                @foreach ($beritaTerkinis->content as $item)
                                     @if ($item['type'] === 'paragraph')
                                         @php
                                             $content = strip_tags($item['data']['content']);
@@ -194,26 +194,26 @@
 </section>
 {{-- End Berita Terkini --}}
 
-{{-- Start Artikel Terkini --}}
+{{-- Start Ikasda Bangga --}}
 <section class="bg-secondary">
     <div class="p-8">
         <p class="text-center text-[30px] font-bold text-primary">
             IKASDA BANGSA
         </p>
         <div class="flex flex-row flex-wrap justify-center gap-6 py-5">
-            @foreach ($artikel as $artikels)
+            @foreach ($ikasdaBangga as $ikasdaBanggas)
                 <div
-                    class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#f5d05e] border-r-[#f5d05e] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                    <a href="{{ route('posts.show', ['category' => $artikels->categories->slug, 'post' => $artikels->slug]) }}"
+                    class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-primary border-r-primary bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+                    <a href="{{ route('posts.show', ['category' => $ikasdaBanggas->categories->slug, 'post' => $ikasdaBanggas->slug]) }}"
                         class="flex justify-center">
-                        <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $artikels->getFirstMediaUrl() }}"
-                            alt="berita terkini" />
+                        <img class="m-3 h-[179px] w-[248px] rounded-xl"
+                            src="{{ $ikasdaBanggas->getFirstMediaUrl() }}" alt="{{ $ikasdaBanggas->slug }}" />
                     </a>
                     <div class="px-14">
                         <a
-                            href="{{ route('posts.show', ['category' => $artikels->categories->slug, 'post' => $artikels->slug]) }}">
+                            href="{{ route('posts.show', ['category' => $ikasdaBanggas->categories->slug, 'post' => $ikasdaBanggas->slug]) }}">
                             @php
-                                $words = explode(' ', $artikels->title);
+                                $words = explode(' ', $ikasdaBanggas->title);
                                 $limitedTitle = implode(' ', array_slice($words, 0, 7));
                             @endphp
 
@@ -222,7 +222,7 @@
                             </h5>
                         </a>
                         <div>
-                            @foreach ($artikels->content as $item)
+                            @foreach ($ikasdaBanggas->content as $item)
                                 @if ($item['type'] === 'paragraph')
                                     @php
                                         $content = strip_tags($item['data']['content']);
@@ -250,28 +250,28 @@
     </div>
 </div>
 </section>
-{{-- End Artikel Terkini --}}
+{{-- End Ikasda Bangga --}}
 
-{{-- Start Mini Blog --}}
+{{-- Start Teras Kopi --}}
 <section class="bg-primary">
 <div class="p-8">
     <p class="text-center text-[30px] font-bold text-secondary">
         TERAS KOPI
     </p>
     <div class="flex flex-row flex-wrap justify-center gap-6 py-5">
-        @foreach ($miniBlog as $miniBlogs)
+        @foreach ($terasKopi as $terasKopis)
             <div
-                class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                <a href="{{ route('posts.show', ['category' => $miniBlogs->categories->slug, 'post' => $miniBlogs->slug]) }}"
+                class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-secondary border-r-secondary bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+                <a href="{{ route('posts.show', ['category' => $terasKopis->categories->slug, 'post' => $terasKopis->slug]) }}"
                     class="flex justify-center">
-                    <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $miniBlogs->getFirstMediaUrl() }}"
-                        alt="berita terkini" />
+                    <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $terasKopis->getFirstMediaUrl() }}"
+                        alt="{{ $terasKopis->slug }}" />
                 </a>
                 <div class="px-14">
                     <a
-                        href="{{ route('posts.show', ['category' => $miniBlogs->categories->slug, 'post' => $miniBlogs->slug]) }}">
+                        href="{{ route('posts.show', ['category' => $terasKopis->categories->slug, 'post' => $terasKopis->slug]) }}">
                         @php
-                            $words = explode(' ', $miniBlogs->title);
+                            $words = explode(' ', $terasKopis->title);
                             $limitedTitle = implode(' ', array_slice($words, 0, 7));
                         @endphp
 
@@ -280,7 +280,7 @@
                         </h5>
                     </a>
                     <div>
-                        @foreach ($miniBlogs->content as $item)
+                        @foreach ($terasKopis->content as $item)
                             @if ($item['type'] === 'paragraph')
                                 @php
                                     $content = strip_tags($item['data']['content']);
@@ -308,7 +308,7 @@
 </div>
 </div>
 </section>
-{{-- End Mini Blog --}}
+{{-- End Teras Kopi --}}
 
 {{-- Start Kegiatan --}}
 <section>
