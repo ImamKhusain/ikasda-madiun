@@ -5,9 +5,9 @@
 @section('content')
     <div class="flex flex-col">
         <div class="flex flex-row md:mb-20">
-            <div class="relative w-full top-16 md:top-40">
+            <div class="relative w-full top-16 md:top-40 mx-auto">
                 <img src="/images/merchandise.png" alt="merchandise"
-                    class="h-full w-full object-cover bg-black bg-blend-multiply bg-opacity-20 shadow-md" />
+                    class="h-full w-full object-contain bg-black bg-blend-multiply bg-opacity-20 shadow-md" />
             </div>
             <div class="flex items-center justify-end">
                 <h1
