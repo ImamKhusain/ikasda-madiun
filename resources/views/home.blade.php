@@ -7,7 +7,7 @@
 @section('content')
     <div class="mx-auto w-full p-0">
         {{-- Start Hero Page --}}
-        <section class="relative w-full top-10">
+        <section class="relative w-full top-10 mx-auto">
             <img src="/images/hero.png" class="h-full w-full object-cover" alt="hero-image" />
         </section>
         {{-- End Hero Page --}}
@@ -52,7 +52,7 @@
                     <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
                 </div>
             </div>
-            <div class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[600px]">
+            <div class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[600px] mt-5">
                 <img src="{{ $profil->getFirstMediaUrl() }}" alt="ikasda-logo" />
             </div>
         </div>

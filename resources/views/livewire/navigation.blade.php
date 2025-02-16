@@ -13,10 +13,11 @@
                             d="M1 1h15M1 7h15M1 13h15" />
                     </svg>
                 </button>
-                <div class="hidden md:flex flex-row items-center p-1 md:p-4">
+                <div class="flex flex-row items-center p-1 md:p-4">
                     <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/images/sma-2-madiun-logo.png" class="w-14 aspect-square " alt="SMA 2 Madiun Logo" />
-                        <img src="/images/ikasda-logo.png" class="w-48 h-14 object-cover" alt="Ikasda Logo" />
+                        <img src="/images/sma-2-madiun-logo.png" class="w-7 md:w-14 aspect-square "
+                            alt="SMA 2 Madiun Logo" />
+                        <img src="/images/ikasda-logo.png" class="w-24 md:w-48 h-14 object-cover" alt="Ikasda Logo" />
                     </a>
                 </div>
             </div>
