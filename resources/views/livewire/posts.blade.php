@@ -3,184 +3,242 @@
         <div class="relative w-full top-10">
             <img src="/images/berita-ikasda.png" alt="artikel" class="h-full w-full object-contain">
         </div>
-        <nav class="flex w-full h-15 md:h-20 items-center justify-center bg-[#0D5568]">
-            @foreach ($categories as $item)
-                <div
-                    class="{{ $item->slug === $category ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-lg md:text-2xl font-bold w-auto h-full py-2 md:py-4 px-6 text-white">
-                    <button type="button" wire:click="setCategory('{{ $item->slug }}')"
-                        class="">{{ $item->name }}</button>
-                </div>
-            @endforeach
-        </nav>
     </div>
 
-    {{-- Carousel Start --}}
+    {{-- Berita Terkini Start --}}
     <section class="bg-white p-10">
-        <div class="relative w-full h-[70vh] bg-[#0D5568] overflow-hidden rounded-lg">
-            <x-carousel :posts="$this->posts" />
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Kolom Kiri: BERITA TERKINI -->
+                <div class="col-span-2 bg-white shadow p-4">
+                    <h2 class="text-xl font-bold border-b pb-2 mb-4">BERITA TERKINI</h2>
+
+                    <!-- Grid Berita Terkini -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                        <!-- Card Berita -->
+                        @foreach ($posts as $item)
+                            <a
+                                href="{{ route('posts.show', ['category' => $item->categories->slug, 'post' => $item->slug]) }}">
+                                <div class="bg-gray-50 shadow-sm rounded overflow-hidden">
+                                    <img src="{{ $item->getFirstMediaUrl() }}" alt="Thumbnail Berita"
+                                        class="w-full h-40 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-sm font-semibold mb-1">{{ $item->title }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <a href="#"
+                            class="inline-block w-full bg-primary text-white font-semibold px-4 py-2 rounded hover:bg-yellow-500 transition">
+                            LIHAT LAINNYA
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: BERITA POPULER -->
+                <div class="bg-white shadow p-4">
+                    <h2 class="text-xl font-bold border-b pb-2 mb-4">BERITA POPULER</h2>
+
+                    <!-- Daftar Berita Populer -->
+                    <div class="space-y-4">
+                        @foreach ($posts as $item)
+                            <a
+                                href="{{ route('posts.show', ['category' => $item->categories->slug, 'post' => $item->slug]) }}">
+                                <div class="flex items-center space-x-3">
+                                    <img src="{{ $item->getFirstMediaUrl() }}" alt="Thumbnail Populer"
+                                        class="w-16 h-16 object-cover rounded">
+                                    <div>
+                                        <h3 class="text-sm font-semibold">{{ $item->title }}</h3>
+                                        <p class="text-xs text-gray-500">{!! \Carbon\Carbon::parse($item->published_at)->format('d F Y') !!}</p>
+                                        <a href="{{ route('posts.show', ['category' => $item->categories->slug, 'post' => $item->slug]) }}"
+                                            class="text-xs text-blue-600 font-semibold hover:underline">
+                                            Baca selengkapnya
+                                        </a>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+
+                    <!-- Tombol Lihat Berita Lainnya -->
+                    <div class="mt-4 text-left border-t-2 border-t-primary py-3">
+                        <a href="#"
+                            class="w-full text-black font-semibold px-4 py-2 rounded transition flex justify-between">
+                            <p class="text-base">LIHAT LEBIH BANYAK</p>
+                            <img src="/images/black-arrow.svg" alt="arrow" class="w-4 lg:w-5 aspect-square" />
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-    {{-- Carousel End --}}
+    {{-- Berita Terkini End --}}
 
     {{-- Category Start --}}
-    @if ($category === 'artikel' || $category === 'mini-blog')
-        <section class="bg-white">
-            <div class="p-10 flex flex-col gap-5 w-full">
-                <div class="">
-                    <h1 class="border-b-4 border-b-[#FFDF4E] text-4xl w-full pb-2">Category</h1>
-                </div>
-                <div
-                    class="p-10 w-fit md:w-fit h-fit bg-[#0D5568] rounded-lg flex flex-col md:flex-row items-center justify-center md:items-start md:justify-between gap-5 md:gap-7 lg:gap-10">
-                    @if ($category === 'mini-blog')
-                        <div
-                            class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-72 xl:h-72 rounded-lg shadow bg-slate-400">
-                            <div class="p-2 lg:p-5 relative flex flex-col items-center h-full rounded-lg gap-2 lg:gap-10 bg-cover bg-center"
-                                style="background-image: url('/images/sub-category/fact-research.png');">
-                                <div
-                                    class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
-                                    <img src="/images/sub-category/category-icon.svg" alt="cat icon"
-                                        class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'fact-in-research']) }}"
-                                        class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">FACT
-                                        IN
-                                        RESEARCH</a>
-                                </div>
-                                <p class="font-medium text-xs lg:text-base text-justify text-white">Fakta menarik
-                                    seputar
-                                    penelitian</p>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-72 xl:h-72 rounded-lg shadow bg-slate-400">
-                            <div class="p-2 lg:p-5 relative flex flex-col items-center h-full rounded-lg gap-2 lg:gap-10 bg-cover bg-center"
-                                style="background-image: url('/images/sub-category/isr-edu.png');">
-                                <div
-                                    class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
-                                    <img src="/images/sub-category/category-icon.svg" alt="cat icon"
-                                        class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'isr-edu']) }}"
-                                        class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">ISR
-                                        EDU</a>
-                                </div>
-                                <p class="font-medium text-xs lg:text-base text-justify text-white">Edukasi tentang
-                                    penelitian
-                                    pengkajian,
-                                    SDGs, dan jenis penelitian</p>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if ($category === 'artikel')
-                        <div
-                            class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-lg shadow bg-slate-400">
-                            <div class="p-2 lg:p-5 relative flex flex-col items-center rounded-lg h-full gap-2 lg:gap-10 bg-cover bg-center"
+    <section class="bg-white">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <!-- Bagian KATEGORI -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="col-span-2 bg-white shadow rounded p-4 mb-8">
+                    <h2 class="text-xl font-bold border-b pb-2 mb-4">KATEGORI</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="flex items-center justify-center rounded-lg shadow bg-slate-400 overflow-hidden">
+                            <div class="p-3 lg:p-5 relative flex flex-col items-center rounded-lg w-full gap-2 lg:gap-3 bg-cover bg-center"
                                 style="background-image: url('/images/sub-category/isr-journey.png');">
                                 <div
-                                    class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
+                                    class="flex items-center justify-center border border-[#FFDF4E] gap-1 lg:gap-2 px-2 py-1 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'isr-journey']) }}"
-                                        class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">ISR
-                                        JOURNEY</a>
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'ikasda-event']) }}"
+                                        class="text-center text-xs md:text-sm font-normal lg:font-bold text-[#FFDF4E]">
+                                        IKASDA EVENT
+                                    </a>
                                 </div>
-                                <p class="font-medium text-xs lg:text-base text-justify text-white">Liputan dan berita
-                                    tentang program kerja yang telah dilaksanakan UKM ISR UPNVY</p>
+                                <p class="font-medium text-xs md:text-sm text-justify text-white">
+                                    Liputan dan berita tentang program event yang telah diselenggarakan Ikasda Madiun
+                                </p>
                             </div>
                         </div>
-                        <div
-                            class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-lg shadow bg-slate-400">
-                            <div class="p-2 lg:p-5 relative flex flex-col items-center rounded-lg h-full gap-2 lg:gap-10 bg-cover bg-center"
+
+                        <div class="flex items-center justify-center rounded-lg shadow bg-slate-400 overflow-hidden">
+                            <div class="p-3 lg:p-5 relative flex flex-col items-center rounded-lg w-full gap-2 lg:gap-3 bg-cover bg-center"
                                 style="background-image: url('/images/sub-category/opini-refleksi.png');">
                                 <div
-                                    class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
+                                    class="flex items-center justify-center border border-[#FFDF4E] gap-1 lg:gap-2 px-2 py-1 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'opini-refleksi']) }}"
-                                        class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">OPINI
-                                        &
-                                        REFLEKSI</a>
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'ikasda-karir']) }}"
+                                        class="text-center text-xs md:text-sm font-normal lg:font-bold text-[#FFDF4E]">
+                                        IKASDA KARIR
+                                    </a>
                                 </div>
-                                <p class="font-medium text-xs lg:text-base text-justify text-white">Membahas isu-isu
-                                    tertentu</p>
+                                <p class="font-medium text-xs md:text-sm text-justify text-white">
+                                    Memberitahu tentang lowongan pekerjaan
+                                </p>
                             </div>
                         </div>
-                        <div
-                            class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-lg shadow bg-slate-400">
-                            <div class="p-2 lg:p-5 relative flex flex-col items-center rounded-lg h-full gap-2 lg:gap-10 bg-cover bg-center"
+
+                        <div class="flex items-center justify-center rounded-lg shadow bg-slate-400 overflow-hidden">
+                            <div class="p-3 lg:p-5 relative flex flex-col items-center rounded-lg w-full gap-2 lg:gap-3 bg-cover bg-center"
                                 style="background-image: url('/images/sub-category/tips-trick.png');">
                                 <div
-                                    class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
+                                    class="flex items-center justify-center border border-[#FFDF4E] gap-1 lg:gap-2 px-2 py-1 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'tips-trick']) }}"
-                                        class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">TIPS
-                                        &
-                                        TRICK</a>
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'teras-kopi']) }}"
+                                        class="text-center text-xs md:text-sm font-normal lg:font-bold text-[#FFDF4E]">
+                                        TERAS KOPI
+                                    </a>
                                 </div>
-                                <p class="font-medium text-xs lg:text-base text-justify text-white">Berisi tips & trick
-                                    terkait
-                                    topik keilmiahan dan wawancara inspiratif tokoh terkait</p>
+                                <p class="font-medium text-xs md:text-sm text-justify text-white">
+                                    Berisi informasi untuk acara kumpul bersama tiap-tiap angkatan Ikasda Madiun
+                                </p>
                             </div>
                         </div>
-                        <div
-                            class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-lg shadow bg-slate-400">
-                            <div class="p-2 lg:p-5 relative flex flex-col items-center rounded-lg h-full gap-2 lg:gap-10 bg-cover bg-center"
+
+                        <div class="flex items-center justify-center rounded-lg shadow bg-slate-400 overflow-hidden">
+                            <div class="p-3 lg:p-5 relative flex flex-col items-center rounded-lg w-full gap-2 lg:gap-3 bg-cover bg-center"
                                 style="background-image: url('/images/sub-category/prestasi-isr.png');">
                                 <div
-                                    class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
+                                    class="flex items-center justify-center border border-[#FFDF4E] gap-1 lg:gap-2 px-2 py-1 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
                                     <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'prestasi-isr']) }}"
-                                        class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">PRESTASI
-                                        ISR</a>
+                                        href="{{ route('posts.detail', ['category' => 'ikasda-bangga']) }}"
+                                        class="text-center text-xs md:text-sm font-normal lg:font-bold text-[#FFDF4E]">
+                                        IKASDA BANGGA
+                                    </a>
                                 </div>
-                                <p class="font-medium text-xs lg:text-base text-justify text-white">Berita tentang
-                                    prestasi anggota
-                                    UKM ISR UPNVY</p>
+                                <p class="font-medium text-xs md:text-sm text-justify text-white">
+                                    Berita tentang berbagai karir alumni Smada Madiun
+                                </p>
                             </div>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
-        </section>
-    @endif
-    @if ($category === 'berita')
-        <section>
 
-        </section>
-    @endif
-    {{-- Category End --}}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="col-span-2 bg-white shadow rounded p-4">
+                    <!-- Tabs (judul kategori) -->
+                    <div class="flex space-x-4 border-b pb-2 mb-4">
+                        <!-- Tab Aktif -->
+                        <button class="px-3 py-2 text-sm font-semibold text-gray-700 border-b-2 border-yellow-400">
+                            IKASDA EVENT
+                        </button>
+                        <!-- Tab Lain -->
+                        <button class="px-3 py-2 text-sm font-semibold text-gray-500 hover:text-gray-700">
+                            IKASDA KARIR
+                        </button>
+                        <button class="px-3 py-2 text-sm font-semibold text-gray-500 hover:text-gray-700">
+                            IKASDA KOPI
+                        </button>
+                        <button class="px-3 py-2 text-sm font-semibold text-gray-500 hover:text-gray-700">
+                            IKASDA BANGGA
+                        </button>
+                    </div>
 
-    {{-- Posts Terbaru Start --}}
-    <section class="bg-white">
-        <div class="p-10 flex flex-col gap-5 w-full">
-            <div class="">
-                <h1 class="border-b-4 border-b-[#FFDF4E] text-4xl w-full pb-2">{{ ucwords($category) }} Terbaru
-                </h1>
-            </div>
-            <div
-                class="py-4 w-auto h-full bg-white rounded-lg flex flex-row items-center justify-start gap-8 flex-wrap">
-                @foreach ($this->posts as $post)
-                    <x-posts.post-card :post="$post" />
-                @endforeach
-            </div>
-            <div class="flex items-center justify-center">
-                <div
-                    class="flex flex-row items-center justify-center rounded-xl bg-[#FFDF4E] w-60 h-10 gap-2 transition-transform duration-300 hover:scale-110">
+                    <!-- Daftar Berita -->
+                    <div class="space-y-4">
+                        <!-- Berita 1 -->
+                        <div class="flex items-center space-x-4">
+                            <img src="https://via.placeholder.com/150x100" alt="Madiun Running Fest"
+                                class="w-24 h-16 object-cover rounded">
+                            <div>
+                                <h3 class="font-semibold text-gray-700">
+                                    Madiun Running Fest Present By : Ikasda Madiun
+                                </h3>
+                                <p class="text-sm text-gray-500">September 29, 2024</p>
+                            </div>
+                        </div>
+                        <!-- Berita 2 -->
+                        <div class="flex items-center space-x-4">
+                            <img src="https://via.placeholder.com/150x100" alt="Madiun Night Cycling"
+                                class="w-24 h-16 object-cover rounded">
+                            <div>
+                                <h3 class="font-semibold text-gray-700">
+                                    Madiun Night Cycling Bersama Walikota & Ikatan Alumni SMADA Madiun
+                                </h3>
+                                <p class="text-sm text-gray-500">July 1, 2023</p>
+                            </div>
+                        </div>
+                        <!-- Berita 3 -->
+                        <div class="flex items-center space-x-4">
+                            <img src="https://via.placeholder.com/150x100" alt="Pelantikan Pengurus Ikasda"
+                                class="w-24 h-16 object-cover rounded">
+                            <div>
+                                <h3 class="font-semibold text-gray-700">
+                                    Pelantikan Pengurus Ikasda Periode 2023-2026
+                                </h3>
+                                <p class="text-sm text-gray-500">Mei 10, 2023</p>
+                            </div>
+                        </div>
+                        <!-- Berita 4 -->
+                        <div class="flex items-center space-x-4">
+                            <img src="https://via.placeholder.com/150x100" alt="Ikasda Sunat Massal"
+                                class="w-24 h-16 object-cover rounded">
+                            <div>
+                                <h3 class="font-semibold text-gray-700">
+                                    Ikasda Sunat Massal Tahun 2024
+                                </h3>
+                                <p class="text-sm text-gray-500">Juni 15, 2024</p>
+                            </div>
+                        </div>
+                    </div>
 
-                    <a href="{{ route('posts.detail', ['category' => $category]) }}"
-                        class="p-3 text-sm md:text-base font-bold">
-                        LIHAT SELENGKAPNYA
-                    </a>
-                    <img src="/images/black-arrow.svg" alt="arrow" class="w-4 lg:w-5 aspect-square" />
+                    <div class="mt-4 text-center">
+                        <a href="#"
+                            class="inline-block w-full bg-primary text-white font-semibold px-4 py-2 rounded hover:bg-yellow-500 transition">
+                            LIHAT LAINNYA
+                        </a>
+                    </div>
                 </div>
             </div>
+        </div>
     </section>
-    {{-- Posts Terbaru End --}}
+    {{-- Category End --}}
 </div>

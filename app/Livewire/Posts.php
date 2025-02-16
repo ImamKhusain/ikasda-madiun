@@ -28,6 +28,7 @@ class Posts extends Component
     public function render(Post $post)
     {
         $categories = Category::where('model', $post->getMorphClass())->orderBy('name', 'asc')->get();
-        return view('livewire.posts', ['categories' => $categories]);
+        $posts = Post::with('tags')->published()->get();
+        return view('livewire.posts', ['categories' => $categories, 'posts' => $posts]);
     }
 }
