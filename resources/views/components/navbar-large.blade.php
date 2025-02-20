@@ -15,17 +15,17 @@
             </div>
         </a>
         <button data-menu id="layanan-alumni"
-            class="cursor-pointer flex items-center text-black p-4 hover:text-white transition duration-300 ease-out">
+            class="flex items-center text-black p-4 hover:text-white transition duration-300 ease-out">
             <div class="ml-2 text-left">
                 <h1 class="font-bold text-base">Layanan Alumni</h1>
             </div>
         </button>
-        <button data-menu id="data-alumni"
-            class="cursor-pointer flex items-center text-black p-4 hover:text-white transition duration-300 ease-out">
+        <a data-menu id="data-alumni" href="{{ route('alumni.index') }}"
+            class="flex items-center text-black p-4 hover:text-white transition duration-300 ease-out">
             <div class="ml-2 text-left">
                 <h1 class="font-bold text-base">Data alumni</h1>
             </div>
-        </button>
+        </a>
         <a data-menu id="market-alumni" href="{{ route('merchandise.index') }}"
             class="flex items-center text-black p-4 hover:text-white transition duration-300 ease-out">
             <div class="ml-2 text-left">

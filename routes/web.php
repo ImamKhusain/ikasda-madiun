@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DownloadController;
@@ -35,3 +36,6 @@ Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 's
 
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');
 Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'show'])->name('merchandise.show');
+
+Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni.index');
+Route::get('/alumni/{alumni:slug}', [AlumniController::class, 'show'])->name('alumni.show');

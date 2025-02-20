@@ -101,7 +101,7 @@
         {{-- Menu Layanan Alumni End --}}
 
         {{-- Menu Data Alumni Start --}}
-        <a data-menu id="market" href="{{ route('merchandise.index') }}"
+        <a data-menu id="market" href="{{ route('alumni.index') }}"
             class="flex w-full items-center justify-between p-4">
             <div class="flex items-center gap-2">
                 <div class="flex flex-col justify-center">
